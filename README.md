@@ -17,3 +17,5 @@ is a tool which helps with creating the ROM memory and creating vector images. a
 - ```LIN X Y```: creates a line from previous coordinates to specified coordinates
 - ```RESET```: creates a memory reset at previous coordinates (double line AND pos signal) [x, y, 1, 1]
 - ```PRINT```: prints the full history to two .txt files; one suited for **draw_vectors.py** and one suited for SystemVerilog ROM module 
+- ```MODE```: toggles between Screen (0,0 top-left) or Math (0,0 bottom-left) input modes.
+- ```INDEX N```: makes a starting index as N for system verilog ROM memory file
