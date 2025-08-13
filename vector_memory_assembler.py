@@ -1,8 +1,13 @@
 import matplotlib.pyplot as plt
+import os
 
 data_entries = []
 last_x = None
 last_y = None
+
+# Create output folder if it doesn't exist
+output_dir = "output"
+os.makedirs(output_dir, exist_ok=True)
 
 def new_plot():
     plt.figure()
@@ -16,8 +21,11 @@ def new_plot():
     plt.show(block=False)  # Show without blocking input
 
 def save_files():
+    python_path = os.path.join(output_dir, "data_python.txt")
+    sv_path = os.path.join(output_dir, "data_sv.txt")
+
     # Python array format
-    with open("data_python.txt", "w") as f_py:
+    with open(python_path, "w") as f_py:
         f_py.write("   # x   y   line pos\n")
         f_py.write("data_entries = [\n")
         for x, y, line, pos in data_entries:
@@ -25,12 +33,12 @@ def save_files():
         f_py.write("]\n")
 
     # SystemVerilog format
-    with open("data_sv.txt", "w") as f_sv:
+    with open(sv_path, "w") as f_sv:
         f_sv.write("            //                  x       y       line    pos\n")
         for idx, (x, y, line, pos) in enumerate(data_entries):
             f_sv.write(f"            4'd{idx}:  data_out = {{8'd{x}, 8'd{y}, 1'b{line}, 1'b{pos}}};\n")
 
-    print("Files saved: data_python.txt, data_sv.txt")
+    print(f"Files saved in '{output_dir}':\n- {python_path}\n- {sv_path}")
 
 print("Commands:\nPOS X Y\nLIN X Y\nRESET\nPRINT\nType 'exit' to quit.")
 
